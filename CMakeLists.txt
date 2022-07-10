@@ -112,8 +112,8 @@ endif ()
 
 # Set up main library
 add_library(imgui ${IMGUI_ROOT_DIR}/imgui.h ${IMGUI_ROOT_DIR}/imgui_internal.h ${IMGUI_ROOT_DIR}/imgui.cpp
-        ${IMGUI_ROOT_DIR}/imgui_draw.cpp ${IMGUI_ROOT_DIR}/imgui_widgets.cpp ${IMGUI_ROOT_DIR}/imgui_tables.cpp
-        )
+    ${IMGUI_ROOT_DIR}/imgui_draw.cpp ${IMGUI_ROOT_DIR}/imgui_widgets.cpp ${IMGUI_ROOT_DIR}/imgui_tables.cpp 
+)
 if (IMGUI_DEMO)
     target_sources(imgui PRIVATE ${IMGUI_ROOT_DIR}/imgui_demo.cpp)
 endif ()
@@ -187,9 +187,9 @@ if (IMGUI_IMPL_SDL)
         target_include_directories(SDL2::SDL2 INTERFACE "$ENV{SDL2_DIR}/include")
         target_link_libraries(SDL2::SDL2 INTERFACE $ENV{SDL2_DIR}/lib/${IMGUI_SDL_PLATFORM_ARCH}/SDL2main.lib)
         set_target_properties(SDL2::SDL2 PROPERTIES
-                IMPORTED_LOCATION "$ENV{SDL2_DIR}/lib/${IMGUI_SDL_PLATFORM_ARCH}/SDL2.dll"
-                IMPORTED_IMPLIB "$ENV{SDL2_DIR}/lib/${IMGUI_SDL_PLATFORM_ARCH}/SDL2.lib"
-                )
+            IMPORTED_LOCATION "$ENV{SDL2_DIR}/lib/${IMGUI_SDL_PLATFORM_ARCH}/SDL2.dll"
+            IMPORTED_IMPLIB "$ENV{SDL2_DIR}/lib/${IMGUI_SDL_PLATFORM_ARCH}/SDL2.lib"
+        )
     elseif (PkgConfig_FOUND)
         # Rest of the platforms (like MacOS) can consume SDL via pkg-config.
         # CMake 3.6 supports IMPORTED_TARGET parameter which creates PkgConfig::sdl2 target that we can easily link to.
@@ -207,9 +207,9 @@ if (IMGUI_IMPL_SDL)
     if (TARGET ${IMGUI_SDL_TARGET} OR CMAKE_SYSTEM_NAME STREQUAL Emscripten)
         add_library (imgui-sdl INTERFACE)
         target_sources(imgui-sdl INTERFACE
-                ${IMGUI_BACKENDS_DIR}/imgui_impl_sdl.h
-                ${IMGUI_BACKENDS_DIR}/imgui_impl_sdl.cpp
-                )
+            ${IMGUI_BACKENDS_DIR}/imgui_impl_sdl.h
+            ${IMGUI_BACKENDS_DIR}/imgui_impl_sdl.cpp
+        )
         target_include_directories(imgui-sdl INTERFACE ${IMGUI_BACKENDS_DIR})
         target_link_libraries(imgui-sdl INTERFACE imgui)
         if (TARGET ${IMGUI_SDL_TARGET})
@@ -222,9 +222,9 @@ endif ()
 if (IMGUI_IMPL_METAL AND APPLE)
     add_library(imgui-metal INTERFACE)
     target_sources(imgui-metal INTERFACE
-            ${IMGUI_BACKENDS_DIR}/imgui_impl_metal.h
-            ${IMGUI_BACKENDS_DIR}/imgui_impl_metal.mm
-            )
+        ${IMGUI_BACKENDS_DIR}/imgui_impl_metal.h
+        ${IMGUI_BACKENDS_DIR}/imgui_impl_metal.mm
+    )
     target_link_libraries(imgui-metal INTERFACE imgui "-framework Cocoa" "-framework Metal" "-framework QuartzCore")
     target_compile_options(imgui-metal INTERFACE -fobjc-arc)
     target_include_directories(imgui-metal INTERFACE ${IMGUI_BACKENDS_DIR})
@@ -232,9 +232,9 @@ endif ()
 if (IMGUI_IMPL_OSX AND APPLE)
     add_library(imgui-osx INTERFACE)
     target_sources(imgui-osx INTERFACE
-            ${IMGUI_BACKENDS_DIR}/imgui_impl_osx.h
-            ${IMGUI_BACKENDS_DIR}/imgui_impl_osx.mm
-            )
+        ${IMGUI_BACKENDS_DIR}/imgui_impl_osx.h
+        ${IMGUI_BACKENDS_DIR}/imgui_impl_osx.mm
+    )
     target_link_libraries(imgui-osx INTERFACE imgui "-framework Cocoa" "-framework AppKit")
     target_compile_options(imgui-osx INTERFACE -fobjc-arc)
     target_include_directories(imgui-osx INTERFACE ${IMGUI_BACKENDS_DIR})
@@ -242,9 +242,9 @@ endif ()
 if (IMGUI_IMPL_WIN32 AND WIN32)
     add_library(imgui-win32 INTERFACE)
     target_sources(imgui-win32 INTERFACE
-            ${IMGUI_BACKENDS_DIR}/imgui_impl_win32.h
-            ${IMGUI_BACKENDS_DIR}/imgui_impl_win32.cpp
-            )
+        ${IMGUI_BACKENDS_DIR}/imgui_impl_win32.h
+        ${IMGUI_BACKENDS_DIR}/imgui_impl_win32.cpp
+    )
     target_include_directories(imgui-win32 INTERFACE ${IMGUI_BACKENDS_DIR})
 endif ()
 if (IMGUI_IMPL_GLFW)
@@ -286,9 +286,9 @@ if (IMGUI_IMPL_GLFW)
     if (TARGET ${IMGUI_GLFW_TARGET})
         add_library(imgui-glfw INTERFACE)
         target_sources(imgui-glfw INTERFACE
-                ${IMGUI_BACKENDS_DIR}/imgui_impl_glfw.h
-                ${IMGUI_BACKENDS_DIR}/imgui_impl_glfw.cpp
-                )
+            ${IMGUI_BACKENDS_DIR}/imgui_impl_glfw.h
+            ${IMGUI_BACKENDS_DIR}/imgui_impl_glfw.cpp
+        )
         target_link_libraries(imgui-glfw INTERFACE ${CMAKE_DL_LIBS} ${IMGUI_GLFW_TARGET})
         target_include_directories(imgui-glfw INTERFACE ${IMGUI_BACKENDS_DIR})
     else ()
@@ -329,9 +329,9 @@ if (IMGUI_IMPL_GLUT)
     if (GLUT_glut_LIBRARY OR IMGUI_GLUT_TARGET)
         add_library(imgui-glut INTERFACE)
         target_sources(imgui-glut INTERFACE
-                ${IMGUI_BACKENDS_DIR}/imgui_impl_glut.h
-                ${IMGUI_BACKENDS_DIR}/imgui_impl_glut.cpp
-                )
+            ${IMGUI_BACKENDS_DIR}/imgui_impl_glut.h
+            ${IMGUI_BACKENDS_DIR}/imgui_impl_glut.cpp
+        )
         target_link_libraries(imgui-glut INTERFACE imgui)
         if (IMGUI_GLUT_TARGET)
             target_link_libraries(imgui-glut INTERFACE ${IMGUI_GLUT_TARGET})
@@ -351,9 +351,9 @@ if (IMGUI_IMPL_DX9)
     if (HAS_D3D9)
         add_library(imgui-dx9 INTERFACE)
         target_sources(imgui-dx9 INTERFACE
-                ${IMGUI_BACKENDS_DIR}/imgui_impl_dx9.h
-                ${IMGUI_BACKENDS_DIR}/imgui_impl_dx9.cpp
-                )
+            ${IMGUI_BACKENDS_DIR}/imgui_impl_dx9.h
+            ${IMGUI_BACKENDS_DIR}/imgui_impl_dx9.cpp
+        )
         target_link_libraries(imgui-dx9 INTERFACE imgui d3d9)
         target_include_directories(imgui-dx9 INTERFACE ${IMGUI_BACKENDS_DIR})
     else ()
@@ -365,9 +365,9 @@ if (IMGUI_IMPL_DX10)
     if (HAS_D3D10)
         add_library(imgui-dx10 INTERFACE)
         target_sources(imgui-dx10 INTERFACE
-                ${IMGUI_BACKENDS_DIR}/imgui_impl_dx10.h
-                ${IMGUI_BACKENDS_DIR}/imgui_impl_dx10.cpp
-                )
+            ${IMGUI_BACKENDS_DIR}/imgui_impl_dx10.h
+            ${IMGUI_BACKENDS_DIR}/imgui_impl_dx10.cpp
+        )
         target_link_libraries(imgui-dx10 INTERFACE imgui d3d10)
         target_include_directories(imgui-dx10 INTERFACE ${IMGUI_BACKENDS_DIR})
     else ()
@@ -379,9 +379,9 @@ if (IMGUI_IMPL_DX11)
     if (HAS_D3D11)
         add_library(imgui-dx11 INTERFACE)
         target_sources(imgui-dx11 INTERFACE
-                ${IMGUI_BACKENDS_DIR}/imgui_impl_dx11.h
-                ${IMGUI_BACKENDS_DIR}/imgui_impl_dx11.cpp
-                )
+            ${IMGUI_BACKENDS_DIR}/imgui_impl_dx11.h
+            ${IMGUI_BACKENDS_DIR}/imgui_impl_dx11.cpp
+        )
         target_link_libraries(imgui-dx11 INTERFACE imgui d3d11)
         target_include_directories(imgui-dx11 INTERFACE ${IMGUI_BACKENDS_DIR})
     else ()
@@ -393,9 +393,9 @@ if (IMGUI_IMPL_DX12)
     if (HAS_D3D11)
         add_library(imgui-dx12 INTERFACE)
         target_sources(imgui-dx12 INTERFACE
-                ${IMGUI_BACKENDS_DIR}/imgui_impl_dx12.h
-                ${IMGUI_BACKENDS_DIR}/imgui_impl_dx12.cpp
-                )
+            ${IMGUI_BACKENDS_DIR}/imgui_impl_dx12.h
+            ${IMGUI_BACKENDS_DIR}/imgui_impl_dx12.cpp
+        )
         target_link_libraries(imgui-dx12 INTERFACE imgui d3d12 dxgi)
         target_include_directories(imgui-dx12 INTERFACE ${IMGUI_BACKENDS_DIR})
     else ()
@@ -435,8 +435,8 @@ if (IMGUI_EXAMPLES)
             if (SDL_IS_IMPORTED)
                 # When program links to imgui-sdl and imported target ${IMGUI_SDL_TARGET} exists - copy SDL dll.
                 add_custom_command(TARGET ${IMGUI_EXAMPLE_TARGET} POST_BUILD
-                        COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                        $<TARGET_FILE:${IMGUI_SDL_TARGET}> $<TARGET_FILE_DIR:${IMGUI_EXAMPLE_TARGET}>)
+                    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                            $<TARGET_FILE:${IMGUI_SDL_TARGET}> $<TARGET_FILE_DIR:${IMGUI_EXAMPLE_TARGET}>)
             endif ()
         endif ()
     endfunction()
@@ -444,15 +444,15 @@ if (IMGUI_EXAMPLES)
         # MacOS Metal example
         # FIXME: This sample is still broken.
         add_executable(example_apple_metal MACOSX_BUNDLE
-                ${IMGUI_EXAMPLES_DIR}/example_apple_metal/Shared/main.m
-                ${IMGUI_EXAMPLES_DIR}/example_apple_metal/Shared/AppDelegate.h
-                ${IMGUI_EXAMPLES_DIR}/example_apple_metal/Shared/AppDelegate.m
-                ${IMGUI_EXAMPLES_DIR}/example_apple_metal/Shared/Renderer.h
-                ${IMGUI_EXAMPLES_DIR}/example_apple_metal/Shared/Renderer.mm
-                ${IMGUI_EXAMPLES_DIR}/example_apple_metal/Shared/ViewController.h
-                ${IMGUI_EXAMPLES_DIR}/example_apple_metal/Shared/ViewController.mm
-                ${IMGUI_EXAMPLES_DIR}/example_apple_metal/macOS/Base.lproj/Main.storyboard
-                )
+            ${IMGUI_EXAMPLES_DIR}/example_apple_metal/Shared/main.m
+            ${IMGUI_EXAMPLES_DIR}/example_apple_metal/Shared/AppDelegate.h
+            ${IMGUI_EXAMPLES_DIR}/example_apple_metal/Shared/AppDelegate.m
+            ${IMGUI_EXAMPLES_DIR}/example_apple_metal/Shared/Renderer.h
+            ${IMGUI_EXAMPLES_DIR}/example_apple_metal/Shared/Renderer.mm
+            ${IMGUI_EXAMPLES_DIR}/example_apple_metal/Shared/ViewController.h
+            ${IMGUI_EXAMPLES_DIR}/example_apple_metal/Shared/ViewController.mm
+            ${IMGUI_EXAMPLES_DIR}/example_apple_metal/macOS/Base.lproj/Main.storyboard
+        )
         target_link_libraries(example_apple_metal imgui imgui-osx imgui-metal)
         # Generate new plist
         file(READ ${IMGUI_EXAMPLES_DIR}/example_apple_metal/macOS/Info-macOS.plist INFO_PLIST)
@@ -462,17 +462,17 @@ if (IMGUI_EXAMPLES)
         file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/example_apple_metal-info.plist "${INFO_PLIST}")
         # Consume new plist
         set_property(TARGET example_apple_metal PROPERTY
-                MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/example_apple_metal-info.plist)
+            MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_BINARY_DIR}/example_apple_metal-info.plist)
         # Compile storyboard
         if(NOT "${CMAKE_GENERATOR}" MATCHES "^Xcode.*")
             # Xcode compiles storyboard automatically. We must do it manually when using other build systems.
             find_program(IBTOOL ibtool HINTS /usr/bin ${OSX_DEVELOPER_ROOT}/usr/bin)
             add_custom_command(TARGET example_apple_metal POST_BUILD COMMAND ${IBTOOL} --errors --warnings --notices
-                    --output-format human-readable-text --compile
-                    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/example_apple_metal.app/Contents/Resources/Base.lproj/Main.storyboardc
-                    ${IMGUI_EXAMPLES_DIR}/example_apple_metal/macOS/Base.lproj/Main.storyboard
-                    COMMENT "Compiling storyboard"
-                    )
+                --output-format human-readable-text --compile
+                ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/example_apple_metal.app/Contents/Resources/Base.lproj/Main.storyboardc
+                ${IMGUI_EXAMPLES_DIR}/example_apple_metal/macOS/Base.lproj/Main.storyboard
+                COMMENT "Compiling storyboard"
+            )
         endif()
         IMGUI_EXAMPLE(TARGET example_apple_opengl2 LINKS imgui-osx imgui-opengl2 SOURCE main.mm)
         IMGUI_EXAMPLE(TARGET example_glfw_metal LINKS imgui-glfw imgui-metal SOURCE main.mm)
